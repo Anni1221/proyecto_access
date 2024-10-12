@@ -1,0 +1,92 @@
+/* index.css */
+
+/* Reseteo básico de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Configuración de la fuente base */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Asegura que el contenedor principal ocupe todo el alto de la ventana */
+  html, body {
+    height: 100%;
+  }
+  
+  #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Estilos básicos para los botones */
+  button {
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilos básicos para los enlaces */
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Estilo general para los encabezados */
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.5rem;
+    color: #222;
+  }
+  
+  /* Estilo básico para formularios */
+  input, select, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+  }
+  
+  /* Estilo básico para mensajes de error */
+  .error-message {
+    color: #e74c3c;
+    margin: 1rem 0;
+  }
+  
+  /* Estilo básico para mensajes de éxito */
+  .success-message {
+    color: #2ecc71;
+    margin: 1rem 0;
+  }
+  
+  /* Flexbox container for centered content */
+  .centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  

@@ -1,0 +1,128 @@
+{
+  "residentes": [
+    {
+      "tipoDocumento": "CC",
+      "nombres": "pepe",
+      "apellidos": "zepeda",
+      "telefono": "0987654321",
+      "vehiculo": true,
+      "email": "nose.xd@gmail.com",
+      "contrasenia": "pepe123",
+      "residenteId": 1,
+      "numdoc": 987654321
+    },
+    {
+      "tipoDocumento": "CE",
+      "nombres": "Alma",
+      "apellidos": "Ramirez",
+      "numdoc": 1020304050,
+      "telefono": "3145562186",
+      "email": "almaramirez@gmail.com",
+      "contrasenia": "Almita1234",
+      "torre": "A",
+      "apartamento": "201",
+      "vehiculo": "Si",
+      "placa": "sos465",
+      "modelo": "2015",
+      "color": "Azul",
+      "residenteId": 2
+    }
+  ],
+  "unidadResidencial": [
+    {
+      "unidadResidencialId": 1,
+      "parqueaderoDisponible": true,
+      "estadoMoraResidente": true,
+      "torre": "A",
+      "apartamento": 101,
+      "parqueaderoId": 1,
+      "residenteId": 1
+    },
+    {
+      "unidadResidencialId": 2,
+      "torre": "A",
+      "apartamento": "201",
+      "parqueaderoId": 1
+    },
+    {
+      "unidadResidencialId": null,
+      "torre": "B",
+      "apartamento": "203",
+      "parqueaderoId": 1
+    }
+  ],
+  "parqueadero": [
+    {
+      "parqueaderoId": 1,
+      "cantidadParqueaderos": 1
+    }
+  ],
+  "vehiculo": [
+    {
+      "vehiculoId": 1,
+      "placa": "sos465",
+      "modelo": "BMW",
+      "color": "Azul",
+      "unidadResidencialId": 2,
+      "residenteId": 2
+    },
+    {
+      "vehiculoId": 1,
+      "placa": "MX122",
+      "modelo": "Renault",
+      "color": "Negro",
+      "unidadResidencialId": 3,
+      "visitanteId": 1
+    }
+  ],
+  "visitante": [
+    {
+      "nombre": "Camila",
+      "apellido": "Rodríguez",
+      "telefono": "3201234567",
+      "tipoDocumento": "CC",
+      "numdoc": "1005678901",
+      "torre": "A",
+      "apartamento": 101,
+      "visitanteId": 1
+    }
+  ],
+  "agendamientoEntrada": [
+    {
+      "agendamientoEntradaId": 1,
+      "fechaentrada": "2024-08-20",
+      "horaEntrada": "10:30:00",
+      "fechasalida": "2024-08-20",
+      "horaSalida": "12:00:00",
+      "TipoEntrada": "Peatonal",
+      "NumPersonas": "1",
+      "Estado": "Completado",
+      "visitanteId": 1,
+      "unidadResidencialId": 1
+    }
+  ],
+  "Vigilante": [
+    {
+      "VigilanteId": 1,
+      "nombres": "Carlos Alberto",
+      "apellidos": "Ramírez",
+      "tipoDocumento": "CC",
+      "numdoc": 1020304050,
+      "telefono": "3105557890",
+      "contrasenia": "vig-123!",
+      "Correo": "carlos.ramirez@gmail.com"
+    }
+  ],
+  "Administrador": [
+    {
+      "nombre": "Carlos",
+      "apellido": "Torrez",
+      "tipoDocumento": "CC",
+      "numdoc": 1028680208,
+      "telefono": "3101234567",
+      "contrasenia": "admin123*",
+      "Correo": "carlosT@gmail.com",
+      "AdministradorId": 1
+    }
+  ]
+}
