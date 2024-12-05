@@ -1,168 +1,208 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../Styles/App3.css';
-import Perfil from '../Assets/Img/nuevoperfil.png';
-import Proximo from '../Assets/Img/proximo.png';
-import HeaderReportes from '../Components/HeaderReportes';
+import Perfil from '../Assets/Img/perfil.gif';
+import HeaderAdminSol from '../Components/HeaderAdminSol';
 import Footer from '../Components/Footer';
-import { registerUser } from '../services/Api';
+import Axios from 'axios';
+import '@fortawesome/fontawesome-free/css/all.css';
 
-const CrearCuenta = () => {
-  const [datosFormulario, setDatosFormulario] = useState({
-    nombres: '',
-    apellidos: '',
-    tipoDocumento: '',
-    numdoc: '', // Cambiado a numdoc
-    telefono: '',
-    contrasenia: '',
-    email: ''
-  });
-  const [mensaje, setMensaje] = useState(''); // Estado para mensajes de éxito o error
+function CrearCuenta() {
+  const [tipoDocumento, setTipoDocumento] = useState("");  
+  const [nombres, setNombres] = useState("");
+  const [apellidos, setApellidos] = useState("");
+  const [numDoc, setNumDoc] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [correo, setCorreo] = useState("");
+  const [mensaje, setMensaje] = useState("");
+  const [usuarios, setUsuarios] = useState([]); // Estado para almacenar usuarios
 
-  const manejarCambioEntrada = (e) => {
-    const { name, value } = e.target;
-    console.log(name, value); // Añadido para depuración
-    setDatosFormulario({
-      ...datosFormulario,
-      [name]: value
-    });
+  // Función para generar contraseña
+  const generarContrasenia = () => {
+    const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+    let contraseniaGenerada = "";
+    for (let i = 0; i < 8; i++) {
+        contraseniaGenerada += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
+    return contraseniaGenerada;
   };
-  
-  const manejarRegistro = async (e) => {
-    e.preventDefault();
+
+  // Función para registrar vigilante
+  const add = async (event) => {
+    event.preventDefault(); // Esto evita la recarga de la página
+
+    // Validaciones básicas
+    if (!tipoDocumento || !nombres || !apellidos || !numDoc || !telefono || !correo) {
+        setMensaje("Por favor complete todos los campos");
+        return;
+    }
+
+    const nuevaContrasenia = generarContrasenia(); // Generar contraseña aleatoria
+
     try {
-      // Envía los datos del formulario a la API
-      await registerUser(datosFormulario);
-      setMensaje('Registro exitoso. ¡Bienvenido!');
+        const response = await Axios.post("http://localhost:3001/crear", {
+            tipoDocumento,
+            nombres,
+            apellidos,
+            numDoc,
+            telefono,
+            correo,
+            contrasenia: nuevaContrasenia,
+            rol: "Vigilante" // Agregar el rol de Vigilante
+        });
+
+        // Mostrar la contraseña generada en el mensaje
+        setMensaje(`Vigilante registrado exitosamente. La contraseña generada es: ${nuevaContrasenia}`);
+        
+        // Limpiar los campos del formulario
+        setTipoDocumento("");
+        setNombres("");
+        setApellidos("");
+        setNumDoc("");
+        setTelefono("");
+        setCorreo("");
     } catch (error) {
-      setMensaje(`Error en el registro: ${error.message}`);
+        console.error("Error al registrar:", error);
+        setMensaje(error.response?.data || "Error al registrar el vigilante");
     }
   };
 
+  // Definición de getUsuario
+  const getUsuario = () => {
+    Axios.get("http://localhost:3001/usuarios") // Cambia esta URL según tu API
+      .then((response) => {
+        setUsuarios(response.data); // Almacena los vigilantes en el estado
+      })
+      .catch((error) => {
+        console.error("Error al obtener usuarios:", error);
+      });
+  };
+
+  // useEffect para llamar a getUsuario al cargar el componente
+  useEffect(() => {
+    getUsuario();
+  }, []);
+
   return (
     <div>
-      <HeaderReportes/>
-      <header className="App-header">
-      </header>
-      
-      <div className="container">
-        <div className="left-section">
-          <img src={Perfil} alt="Icono Grande" className="icono-grande" />
-          <h1>Cuenta Funcionario</h1>
-          <br />
-          <h1>Si necesitas registrar un nuevo funcionario hazlo aquí</h1>
-          <h2>Por favor, diligencia el siguiente formulario</h2>
-          <img src={Proximo} alt="Icono Animado" className="icono-animado" />
-        </div>
-        <div className="right-section">
-          <div className="main-content">
-          <br></br>
-            <div className="content-wrapper">
-              <header>
-                <h2 className="center-title">Cuenta Funcionario</h2>
-              </header>
-              <div className="reporte-container">
-                <form id="reporte-form">
-
-                <label htmlFor="nombres">
-                    <i className="fas fa-user" /> Nombres:
-                  </label>
-                  <input
-                    type="text"
-                    id="nombres"
-                    name="nombres"
-                    value={datosFormulario.nombres}
-                    onChange={manejarCambioEntrada}
-                    required
-                  />
-
-                  <label htmlFor="apellidos">
-                    <i className="fas fa-user" /> Apellidos:
-                  </label>
-                  <input
-                    type="text"
-                    id="apellidos"
-                    name="apellidos"
-                    value={datosFormulario.apellidos}
-                    onChange={manejarCambioEntrada}
-                    required
-                  />
-
-                  <label htmlFor="tipo-documento">
-                    <i className="fas fa-user" /> Tipo de documento:
-                  </label>
-
-                  <select
-                    id="tipo-documento"
-                    name="tipoDocumento"
-                    value={datosFormulario.tipoDocumento}
-                    onChange={manejarCambioEntrada}
-                    required
-                  >
-                    <option value="">Seleccione</option>
-                    <option value="CC">C.C</option>
-                    <option value="CE">C.E</option>
-                  </select>
-
-                  <label htmlFor="numdoc">
-                    <i className="fas fa-id-card" /> Número de documento:
-                  </label>
-                  <input
-                    type="text"
-                    id="numdoc"
-                    name="numdoc"
-                    value={datosFormulario.numdoc}
-                    onChange={manejarCambioEntrada}
-                    required
-                  />
-
-                  <label htmlFor="telefono">
-                    <i className="fas fa-phone" /> Teléfono:
-                  </label>
-                  <input
-                    type="tel"
-                    id="telefono"
-                    name="telefono"
-                    value={datosFormulario.telefono}
-                    onChange={manejarCambioEntrada}
-                    required
-                  />
-                  
-                  <label htmlFor="contrasenia">
-                    <i className="fas fa-lock" /> Contraseña:
-                  </label>
-                  <input
-                    type="password"
-                    id="contrasenia"
-                    name="contrasenia"
-                    value={datosFormulario.contrasenia}
-                    onChange={manejarCambioEntrada}
-                    required
-                  />
-
-                  <label htmlFor="email">
-                    <i className="fas fa-lock" /> Correo electrónico:
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={datosFormulario.email}
-                    onChange={manejarCambioEntrada}
-                    required
-                  />
-
-                  <div className="center-buttons">
-                    <button className="ver-mas-button" id="updateBtn" type="submit" onClick={manejarRegistro}>Registrar</button>
+      <HeaderAdminSol />
+      <div className="App">
+        <h1 className="apartment-list-title typing-text">Crear una nueva Cuenta</h1>
+        <div className="container">
+          <div className="left-section">
+            <img src={Perfil} alt="Icono Grande" className="icono-grande" style={{ marginTop: '5px' }} />
+            <h1>Crear Nueva Cuenta</h1>
+            <h2>Aquí puedes Crear la cuenta del funcionario Vigilante</h2>
+          </div>
+          <div className="outer-container" style={{ padding: '60px', marginTop: '150px', marginLeft: '10px', minHeight: '600px', flexGrow: 1 }}>
+            <div className="form-container" style={{ marginTop: 'auto' }}>
+              <h2 className="center-title">Crear Nueva Cuenta Funcionario</h2><br />
+              <form id="reporte-form" onSubmit={add}>
+                <div className="formulario-grid">
+                  <div>
+                    <label htmlFor="nombres">
+                      <i className="fas fa-user" /> Nombres:
+                    </label>
+                    <input
+                      type="text"
+                      id="nombres"
+                      name="nombres"
+                      value={nombres}
+                      onChange={(event) => setNombres(event.target.value)}
+                      required
+                      placeholder="Ingresa tus nombres completos"
+                    />
                   </div>
-                </form>
 
-                {mensaje && <p className="mensaje">{mensaje}</p>}
-              </div>
+                  <div>
+                    <label htmlFor="apellidos">
+                      <i className="fas fa-user " /> Apellidos:
+                    </label>
+                    <input
+                      type="text"
+                      id="apellidos"
+                      name="apellidos"
+                      value={apellidos}
+                      onChange={(event) => setApellidos(event.target.value)}
+                      required
+                      placeholder="Ingresa tus apellidos completos"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="tipodoc">
+                      <i className="fas fa-id-card" /> Tipo Documento:
+                    </label>
+                    <select
+                      id="tipo-documento"
+                      name="tipoDocumento"
+                      value={tipoDocumento}
+                      onChange={(event) => setTipoDocumento(event.target.value)}
+                      required
+                    >
+                      <option value="">Seleccione</option>
+                      <option value="CC">C.C</option>
+                      <option value="CE">C.E</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="numdoc">
+                      <i className="fas fa-id-card" /> Número Documento:
+                    </label>
+                    <input
+                      type="text"
+                      id="numdoc"
+                      name="numDoc"
+                      value={numDoc}
+                      onChange={(event) => setNumDoc(event.target.value)}
+                      required
+                      placeholder="Ingresa tu número de documento"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="telefono">
+                      <i className="fas fa-phone" /> Teléfono:
+                    </label>
+                    <input
+                      type="tel"
+                      id="telefono"
+                      name="telefono"
+                      value={telefono}
+                      onChange={(event) => setTelefono(event.target.value)}
+                      required
+                      placeholder="Ingresa tu número de teléfono"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="email">
+                      <i className="fas fa-envelope" /> Correo electrónico:
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="correo"
+                      value={correo}
+                      onChange={(event) => setCorreo(event.target.value)}
+                      required
+                      placeholder="ejemplo@correo.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="center-buttons">
+                  <button className="ver-mas-button" id="actualizarBtn" type="submit">
+                    <i className="fas fa-actualizar" /> Registrar
+                  </button>
+                </div>
+              </form>
+              {mensaje && <p className="mensaje">{mensaje}</p>} {/* Mostrar mensaje de éxito o error */}
             </div>
           </div>
         </div>
       </div>
-      <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+      <br></br><br></br><br></br><br></br><br></br>
       <Footer />
     </div>
   );

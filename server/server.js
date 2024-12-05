@@ -1,26 +1,30 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+const express = require("express");
+const bodyParser = require('body-parser');
+const autenticacionRoutes = require('./routes/autenticacionRoutes');
+const usuariosRoutes = require('./routes/usuariosRoutes');
+const agendamientosRoutes = require('./routes/agendamientosRoutes');
+const corsMiddleware = require('./middleware/corsMiddleware');
+const authMiddleware = require('./middleware/authnMiddleware');
+const errorMiddleware = require('./middleware/errorMiddleware');
 
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(corsMiddleware);
 app.use(express.json());
+app.use(authMiddleware);
+app.use('/api/autenticacion', autenticacionRoutes);
 
-// Conectar a MongoDB
-mongoose.connect('mongodb://localhost:27017/accesscheck', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log('Conectado a MongoDB correctamente'))
-  .catch((err) => console.error('Error al conectar a MongoDB:', err));
+// Rutas
+app.use(autenticacionRoutes);
+app.use(usuariosRoutes);
+app.use(agendamientosRoutes);
 
-// Definir tus rutas y lógica aquí
-const port = process.env.PORT || 2624;
-app.listen(port, () => {
-  console.log(`Servidor corriendo en el puerto ${port}`);
+// Middleware de manejo de errores
+app.use(errorMiddleware);
+
+// Iniciar servidor
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
-
-const residenteRoutes = require('./routes/residenteR');
-app.use('/api', residenteRoutes);

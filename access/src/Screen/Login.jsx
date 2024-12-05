@@ -1,22 +1,41 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Styles/App3.css';
-import { loginResidente, loginAdmin, loginFuncionario } from '../services/Api'; // Importamos las funciones necesarias
-import HeaderIn from '../Components/HeaderInicio';
+import HeaderIn from '../Components/HeaderIn';
 import Footer from '../Components/Footer';
 import Inicio1 from '../Assets/Img/inicio1.jpg';
+import axios from 'axios';
+import CryptoJS from 'crypto-js';
+
+// Obtener el token (por ejemplo, de localStorage o cookies)
+const token = localStorage.getItem('token'); 
+
+// Configurar el encabezado Authorization
+const api = axios.create({
+  baseURL: 'http://localhost:3000/access_check/api',
+  headers: {
+    Authorization: `Bearer ${token}` // Asegúrate de que las comillas invertidas sean correctas
+  }
+});
+
+// Hacer una solicitud con Axios
+api.get('/ruta-protegida')
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
 
 const Login = () => {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    numdoc: '',
-    contrasenia: '',
-    tipoUsuario: 'residentes', // Por defecto está en 'residentes'
+    username: '',
+    password: ''
   });
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
-  // Manejar cambios en los campos del formulario
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -25,109 +44,143 @@ const Login = () => {
     });
   };
 
-  // Manejar el envío del formulario
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+  
+    try {
+      const response = await axios.post('http://localhost:3000/login', formData); // Cambia Axios a axios
+      const token = response.data.token; // Suponiendo que el token está en la respuesta
+      localStorage.setItem('token', token); // Guardar el token en localStorage
+      
+      // Configurar el encabezado Authorization para futuras solicitudes
+      const api = axios.create({ // Cambia Axios a axios
+        baseURL: 'http://localhost:3000/access_check/api',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+  
+      // Ejemplo de solicitud a una ruta protegida
+      const protectedResponse = await api.get('/ruta-protegida');
+      console.log(protectedResponse.data);
+  
+      setSuccessMessage('Inicio de sesión exitoso');
+      navigate('/ruta-deseada'); // Redirigir a otra página después del inicio de sesión
+    } catch (error) {
+      console.error(error);
+      setError('Error al iniciar sesión. Por favor, verifica tus credenciales.');
+    }
+  };
+  
   const handleLogin = async (event) => {
     event.preventDefault();
-    const { numdoc, contrasenia, tipoUsuario } = formData;
-
+    const { numdoc, contrasenia } = formData;
+  
+    console.log("Datos enviados:", { numdoc, contrasenia }); // Log de los datos enviados
+  
+    // Encriptar la contraseña
+    const encryptedPassword = encryptPassword(contrasenia);
+  
     try {
-      if (tipoUsuario === 'residentes') {
-        await loginResidente(numdoc, contrasenia);
-        navigate('/InicioResi'); // Redirige a la página de residentes
-      } else if (tipoUsuario === 'vigilante') {
-        await loginFuncionario(numdoc, contrasenia); // Ajuste para vigilante
-        navigate('/InicioVig'); // Redirige a la página de vigilantes
-      } else if (tipoUsuario === 'admin') {
-        await loginAdmin(numdoc, contrasenia);
-        navigate('/InicioAdmin'); // Redirige a la página de administradores
+      const response = await axios.post('http://localhost:3001/login', { // Cambia Axios a axios
+        numdoc,
+        contrasenia: encryptedPassword, // Enviar la contraseña encriptada
+      });
+  
+      const { rol } = response.data; 
+  
+      console.log("Rol recibido:", rol); // Log del rol recibido
+  
+      if (rol === 'Admin') {
+        navigate('/InicioAdmin');
+      } else if (rol === 'Vigilante') {
+        navigate('/InicioVig');
+      } else if (rol === 'Residente') {
+        navigate('/InicioResi');
+      } else {
+        setError('Rol no reconocido.');
       }
-
+  
       setSuccessMessage('Inicio de sesión exitoso.');
       setError('');
     } catch (error) {
+      console.error('Error al iniciar sesión:', error.response ? error.response.data : error);
       setError('Error al iniciar sesión. Verifique sus credenciales.');
       setSuccessMessage('');
     }
   };
 
+  // Función para encriptar la contraseña
+  const encryptPassword = (password) => {
+    const secretKey = 'your-secret-key'; // Usa una clave secreta
+    const encryptedPassword = CryptoJS.AES.encrypt(password, secretKey).toString();
+    return encryptedPassword;
+  };
+
   return (
     <div className="App">
-      <HeaderIn />
-      <header className="App-header">
-      </header>
+      <HeaderIn /><br />
+      <h1 className="apartment-list-title typing-text">Bienvenido a Access Check</h1>
       <div className="container">
-        <div className="left-section">
+        <div className="left-section" style={{ marginTop: '-260px', paddingLeft: '40px' }}>
           <img src={Inicio1} alt="Icono Grande" className="icono-grande" />
-          <h1>Si ya tienes una cuenta inicia sesión aquí</h1>
-          <h2>Por favor, diligencia el siguiente formulario</h2>
-          <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+          <h1>Inicio de Sesión</h1>
+          <br />
+          <h1>¡Bienvenido de nuevo!</h1>
+          <h2>Por favor, ingresa tus datos para iniciar sesión</h2>
         </div>
 
-        <div className="right-section">
-          <div className="main-content">
-            <div className="content-wrapper">
-              <header>
-                <h2 className="center-title">Iniciar Sesión</h2>
-              </header>
-              <div className="reporte-container">
-              <form id="reporte-form" onSubmit={handleLogin}>
-             
+        <div className="outer-container" style={{ padding: '80px', marginTop: '80px', marginLeft: '100px', minHeight: '80px' }}>
+          <div className="form-container" style={{ width: '500px' }}>
+            <h2 className="center-title">Iniciar Sesión</h2>
+            <form id="reporte-form" onSubmit={handleLogin}>
               <label htmlFor="numdoc">
-                    <i className="fas fa-id-card" /> <b>Número de documento:</b>
-                  </label>
-    
-                  <input
-                    type="text"
-                    id="numdoc"
-                    name="numdoc"
-                    value={formData.numdoc}
-                    onChange={handleInputChange}
-                    pattern="[0-9]+"
-                    title="Solo se permiten números"
-                    required
-                  />
-
-                <label htmlFor="contrasenia" className="fas fa-id-card">
-                  <b>Contraseña:</b>
-                </label>
-                <input
+                <i className="fas fa-id-card" /> <b>Número de documento:</b>
+              </label>
+              <input
+                type="text"
+                id="numdoc"
+                name="numdoc"
+                value={formData.numdoc}
+                onChange={handleInputChange}
+                onKeyPress={(e) => {
+                  if (!/^\d+$/.test(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
+                maxLength={10}
+                placeholder="Ingresa tu número de documento"
+                required
+              />
+              <label htmlFor="contrasenia">
+                <i className="fas fa-lock" /> <b>Contraseña:</b>
+              </label>
+              <input
                 type="password"
                 id="contrasenia"
-                name="contrasenia"                
+                name="contrasenia"
                 value={formData.contrasenia}
                 onChange={handleInputChange}
-                  className="reporte-container__input"
-                  required
-                />
-
-                <label htmlFor="tipoUsuario">
-                    <i className="fas fa-user" /> <b>Tipo de Usuario:</b>
-                  </label>
-                  <select
-                    id="tipoUsuario"
-                    name="tipoUsuario"s
-                    value={formData.tipoUsuario}
-                    onChange={handleInputChange}
-                    required
-                  >
-                    <option value="residentes">Residente</option>
-                    <option value="vigilante">Vigilante</option> {/* Cambiado aquí */}
-                    <option value="admin">Administrador</option>
-                  </select>
-                
-                  {error && <p className="error-message">{error}</p>}
-                  {successMessage && <p className="success-message">{successMessage}</p>}
-                <div className="center-buttons">
+                placeholder="Ingresa su contraseña"
+                maxLength={8}
+                required
+              />
+              <small>(máximo 8 caracteres)</small>
+              
+              {error && <p className="error-message">{error}</p>}
+              {successMessage && <p className="success-message">{successMessage}</p>}
+              
+              <div className="center-buttons">
                 <button className="ver-mas-button" id="loginBtn" type="submit">
-                  <i className="fas fa-sign-in-alt" /> Iniciar Sesión
+                  Iniciar Sesión
                 </button>
               </div>
-                </form>
-                </div>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
+      </div>
+         
+      <br /><br /><br /><br /><br />
       <Footer />
     </div>
   );

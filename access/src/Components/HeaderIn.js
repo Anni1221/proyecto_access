@@ -1,10 +1,10 @@
-
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../Styles/Formulario.css';
 import Logo from '../Assets/Img/logo.png';
 
 const HeaderIn = () => {
+  const navigate = useNavigate();
   return (
     <header className="App">
       <div className="logo">
@@ -21,11 +21,24 @@ const HeaderIn = () => {
         </ul>
         <div className="buttons">
           <Link to="/Login">
-            <button>Iniciar Sesión</button>
+            <button>
+              <i className="fas fa-sign-in-alt" style={{ marginRight: '8px' }}></i> 
+              Iniciar Sesión
+            </button>
           </Link>
           <Link to="/Registro">
-            <button>Registrarse</button>
+            <button>
+              <i className="fas fa-user-plus" style={{ marginRight: '8px' }}></i> 
+              Registrarse
+            </button>
           </Link>
+          <button 
+        className="contact-admin-button" 
+        onClick={() => navigate(-1)} 
+        style={{ marginLeft: '20px', display: 'flex', alignItems: 'center' }}
+      >
+        <i className="fas fa-arrow-left"></i> Volver
+      </button>
         </div>
       </nav>
     </header>

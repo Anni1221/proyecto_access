@@ -3,14 +3,24 @@ body {
     font-family: 'Open Sans', sans-serif;
     color: #000000;
     transition: margin-left 0.3s;
+    flex-wrap: wrap;
+  }
+  .in-flex{
+    flex: 1;
+    padding: 25px;
+    min-width: 225;
+  }
+  .in-flex:first-child{
+    flex: 2;
+    
   }
   
   h1, h2, h3, h4, h5, h6 {
     color: #804000; /* Color de los títulos */
   }
+  .apartment-list-title, 
   .access-check-title {
-    text-align: center;
-    margin-top: 20px;
+    color: #804000; /* Color café */
   }
   .container {
     display: flex;
@@ -273,7 +283,14 @@ body {
     50% { border-color: rgb(189, 142, 113); }
   }
   
-  
+  .white-container {
+    background-color: white; /* Fondo blanco */
+    padding: 20px; /* Espacio interior */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(114, 67, 9, 0.1); /* Sombra ligera */
+    margin: 20px auto; /* Espacio exterior, centrado horizontalmente */
+    max-width: 1200px; /* Ancho máximo para el contenedor */
+  }
   
   
   
@@ -421,6 +438,7 @@ body {
   .center-title {
       text-align: center;
       margin: 0 auto;
+      color: #804000; /* Color café */
   }
   
   .main-content header .search-bar {
@@ -444,18 +462,15 @@ body {
     color: #82481f;
   }
   
-  .input-with-icon .search-bar {
-    padding-left: 35px; /* Espacio para el ícono */
-    width: 100%;
-    padding: 10px;
-    border: 1.5px solid #82481f;
-    border-radius: 5px;
+  .search-bar {
+    border: 2px solid #82481f; /* Color café y borde más grueso */
+    border-radius: 5px; /* Bordes redondeados opcionales */
+    padding: 10px; /* Espacio interior */
+    width: 100%; /* Asegúrate de que ocupe todo el ancho disponible */
+    box-sizing: border-box; /* Incluye el padding y el borde en el cálculo del ancho */
   }
   
-  
-  
-  
-  
+ 
   .center-title {
     text-align: center;
     margin: 0 auto;

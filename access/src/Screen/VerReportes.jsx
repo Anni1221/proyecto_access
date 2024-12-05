@@ -4,7 +4,7 @@ import { BarController, LineController } from 'chart.js';
 import { jsPDF } from 'jspdf';
 import HeaderReportes from '../Components/HeaderReportes';
 import Footer from '../Components/Footer';
-import '../Styles/App3.css';
+import '../Styles/App3(1).css';
 
 Chart.register(BarController);
 Chart.register(LineController);
@@ -107,55 +107,47 @@ const generarGraficoMensual = () => {
     <div>
       <HeaderReportes/>
       <div className="App">
-        <h1 className="vigilante-title">Generación de Reportes</h1>
+      <h1 className="apartment-list-title typing-text">Generación de Reportes</h1>
         <h2 className="access-check-title">Conjunto Residecial Zafiro La Prosperidad</h2>
         <h3 className="access-check-title">Access Check</h3>
       </div>
       <div className="reports-container">
-        <div className="reports-wrapper">
-          <div className="graph-container">
-            <div className="visitor-report" id="report-diario">
-              <div className="report-card">
-                <h2>Reporte de Hoy</h2>
-                <canvas id="chart-dia"></canvas>
-                <div className="button-container">
-                  <button className="ver-mas-button" onClick={generarGraficoDiario}>
-                    <i className="fas fa-redo"></i> Regenerar Gráfico
-                  </button>
-                  <button className="ver-mas-button" onClick={() => descargarPDF('Reporte_Diario')}>
-                    <i className="fas fa-download"></i> Descargar PDF
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="visitor-report" id="report-semanal">
-              <div className="report-card">
-                <h2>Reporte Semanal</h2>
-                <canvas id="chart-semana"></canvas>
-                <div className="button-container">
-                  <button className="ver-mas-button" onClick={generarGraficoSemanal}>
-                    <i className="fas fa-redo"></i> Regenerar Gráfico
-                  </button>
-                  <button className="ver-mas-button" onClick={() => descargarPDF('Reporte_Semanal')}>
-                    <i className="fas fa-download"></i> Descargar PDF
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="visitor-report" id="report-mensual">
-              <div className="report-card">
-                <h2>Reporte Mensual</h2>
-                <canvas id="chart-mes"></canvas>
-                <div className="button-container">
-                  <button className="ver-mas-button" onClick={generarGraficoMensual}>
-                    <i className="fas fa-redo"></i> Regenerar Gráfico
-                  </button>
-                  <button className="ver-mas-button" onClick={() => descargarPDF('Reporte_Mensual')}>
-                    <i className="fas fa-download"></i> Descargar PDF
-                  </button>
-                </div>
-              </div>
-            </div>
+        <div className="report-card">
+          <h2>Reporte de Hoy</h2>
+          <canvas id="chart-dia"></canvas>
+          <div className="button-container">
+            <button className="ver-mas-button" onClick={generarGraficoDiario}>
+              <i className="fas fa-redo"></i> Regenerar Gráfico
+            </button>
+            <button className="ver-mas-button" onClick={() => descargarPDF('Reporte_Diario')}>
+              <i className="fas fa-download"></i> Descargar PDF
+            </button>
+          </div>
+        </div>
+
+        <div className="report-card">
+          <h2>Reporte Semanal</h2>
+          <canvas id="chart-semana"></canvas>
+          <div className="button-container">
+            <button className="ver-mas-button" onClick={generarGraficoSemanal}>
+              <i className="fas fa-redo"></i> Regenerar Gráfico
+            </button>
+            <button className="ver-mas-button" onClick={() => descargarPDF('Reporte_Semanal')}>
+              <i className="fas fa-download"></i> Descargar PDF
+            </button>
+          </div>
+        </div>
+
+        <div className="report-card">
+          <h2>Reporte Mensual</h2>
+          <canvas id="chart-mes"></canvas>
+          <div className="button-container">
+            <button className="ver-mas-button" onClick={generarGraficoMensual}>
+              <i className="fas fa-redo"></i> Regenerar Gráfico
+            </button>
+            <button className="ver-mas-button" onClick={() => descargarPDF('Reporte_Mensual')}>
+              <i className="fas fa-download"></i> Descargar PDF
+            </button>
           </div>
         </div>
       </div>

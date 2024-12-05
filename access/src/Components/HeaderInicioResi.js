@@ -14,16 +14,25 @@ const HeaderResi = () => {
     <header className="App-header">
       <nav className="sidebar menu" id="sidebar" style={{ left: sidebarOpen ? '0px' : '-250px' }}>
         <ul>
-          <li><Link to="/calendario" id="calendarToggle">Ver calendario <i className="fas fa-calendar-alt"></i></Link></li>
           <li><div id="calendarContainer" className="calendar-container"></div></li>
-          <li><span id="contactAdmin" onClick={() => setContactAdminOpen(!contactAdminOpen)}><i className="fas fa-envelope"></i> Contactar Administrador</span></li>
+          <li>
+  <button
+    className="contact-admin-button"
+    id="contactAdmin"
+    onClick={() => setContactAdminOpen(!contactAdminOpen)}
+    style={{ cursor: 'pointer' }} // Aunque el botón ya tiene cursor por defecto, lo puedes mantener si es necesario
+  >
+    <i className="fas fa-envelope"></i> Contactar Administrador
+  </button>
+</li>
+
           {contactAdminOpen && (
             <div id="contactAdminBox" className="contact-admin-box">
               <h2 style={{ color: 'white' }}>¿Desea contactar al administrador por correo?</h2>
-              <p>Haga clic en el botón para abrir su cuenta de correo electrónico y enviar un mensaje.</p>
+              <p>Haga clic en el botón para abrir su cuenta de correo electrónico y enviar un mensaje.</p><br></br>
               <a href="mailto:administracion@conjuntozafiro.com.co?subject=Consulta&body=Hola,%20me%20gustaría%20informar%20sobre%20el%20siguiente%20incidente:%20%0A%0A[Detalles]%0A%0AGracias.">
                 <button className="contact-admin-button">
-                  Enviar Correo <i className="fas fa-envelope"></i>
+                  Enviar Correo <i className="fas fa-envelope"></i><br></br>
                 </button>
               </a>
             </div>
@@ -51,11 +60,12 @@ const HeaderResi = () => {
         </a>
       </div>
       <nav className="menu">
-        <div className="title-container">
-          <h1 className="Conjunto-title">
-            Conjunto Residencial Zafiro la Prosperidad
-          </h1>
-        </div>
+      <div className="title-container" style={{ marginLeft: '20px' }}>
+  <h1 className="Conjunto-title">
+    Conjunto Residencial Zafiro la Prosperidad
+  </h1>
+</div>
+
       </nav>
     </header>
   );

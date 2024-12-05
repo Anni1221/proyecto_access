@@ -57,6 +57,51 @@ body {
   .list-item:hover {
     background-color: #E0C4C5;
   }
+  .cafe {
+    color: #804000; /* Un tono de café */
+}
+.text-cafe {
+  color: #804000; /* Color café */
+}
+
+
+  .summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: #ffffff; /* Color de fondo gris claro */
+    padding: 20px;
+    max-width: 1200px; /* Cambia este valor según tus necesidades */
+    margin: 20px auto; /* Centra el contenedor horizontalmente */
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
+    overflow-x: auto; /* Permite el desplazamiento horizontal si es necesario */
+    animation: fadeIn 0.5s ease-in-out; /* Cambia el tiempo y el tipo de animación según lo desees */
+
+  }
+  
+  .summary-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-grow: 1; /* Asegura que todos los elementos crezcan de manera uniforme */
+    background-color: #f7f7f7;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    border: 2px solid #be8042; /* Ancho del borde, color café */
+    min-height: 150px; /* Asegura una altura mínima uniforme para todos */
+    min-width: 200px; /* Asegura un ancho mínimo uniforme para todos */
+    max-width: 220px; /* Limita el ancho máximo */
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho y la altura */
+  }
+  
+  .summary-item:hover {
+    background-color: #e2abbb;
+  }
   
   .apartment-list {
     display: flex;
@@ -68,7 +113,10 @@ body {
     border-radius: 15px;
     background-color: #f4f4f4;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.5s ease-in-out; /* Cambia el tiempo y el tipo de animación según lo desees */
+
   }
+
   
   .apartment:hover {
     background-color: #f4eae3; 
@@ -224,6 +272,7 @@ body {
     gap: 40px; /* Espacio entre los contenedores */
     width: 45%;
     margin: 40px;
+    
   }
   
   .option {
@@ -237,6 +286,8 @@ body {
     align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para darle profundidad */
     transition: background-color 0.3s, transform 0.3s;
+    animation: fadeIn 0.5s ease-in-out; /* Cambia el tiempo y el tipo de animación según lo desees */
+
   }
   
   .option a {
@@ -291,7 +342,7 @@ body {
   /* Perfil */
   .profile-container {
     position: absolute; /* Permite posicionar el contenedor en el lado derecho */
-    top: 182px; /* Espacio desde el borde superior */
+    top: 210px; /* Espacio desde el borde superior */
     right: 100px; /* Espacio desde el borde derecho */
     width: 400px; /* Ancho del contenedor */
     background-color: #d9bda5; /* Color de fondo en la gama de cafés */
@@ -439,29 +490,31 @@ body {
   .dropdown-menu a:hover {
     background-color: #f0f0f0;
   }
-  /*FLECHAS DE DESPLAZAMIENTOS*/
-  .scroll-btn {
-      position: fixed;
-      right: 20px;
-      background-color: #82481f;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      padding: 10px;
-      cursor: pointer;
-      font-size: 20px;
-      z-index: 1000;
-      transition: opacity 0.3s;
-  }
-  
-  #scrollDownBtn {
-      bottom: 20px;
-  }
-  
-  #scrollUpBtn {
-      bottom: 80px;
-  }
-  
-  .scroll-btn:hover {
-      opacity: 0.5;
-  }
+/* FLECHAS DE DESPLAZAMIENTOS */
+.scroll-btn {
+  position: fixed;
+  right: 20px;
+  background-color: #82481f; /* Color original */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  z-index: 1000;
+  transition: opacity 0.3s, background-color 0.3s; /* Agregado para suavizar el cambio de color */
+}
+
+#scrollDownBtn {
+  bottom: 20px;
+}
+
+#scrollUpBtn {
+  bottom: 80px;
+}
+
+.scroll-btn:hover {
+  opacity: 0.5; /* Opacidad al pasar el cursor */
+  background-color: #a0522d; /* Color café más claro al pasar el cursor */
+}
+

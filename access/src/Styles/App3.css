@@ -17,6 +17,8 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  animation: fadeIn 0.5s ease-in-out; /* Cambia el tiempo y el tipo de animación según lo desees */
+
 }
 
 .header {
@@ -410,6 +412,82 @@ body {
   object-fit: cover; /* Ajusta la forma en que se muestra la imagen */
 }
 
+.pagina-residente {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5; /* Color de fondo claro */
+  color: #3e2723; /* Color de texto oscuro */
+  text-align: center;
+  padding: 20px;
+}
+
+.contenido-principal {
+  margin: 20px auto;
+  max-width: 1000px; /* Ajusta el ancho máximo */
+  display: flex; /* Para alinear el perfil y las opciones en fila */
+  justify-content: space-between; /* Distribuye los elementos a los extremos */
+  align-items: flex-start; /* Alinea los elementos al inicio verticalmente */
+}
+
+.opciones-agendamiento {
+  display: flex;
+  flex-direction: column; /* Coloca las tarjetas una debajo de otra */
+  width: 60%; /* Ajusta el tamaño para ocupar más espacio en la izquierda */
+  gap: 20px; /* Espacio entre las tarjetas */
+  margin-top: 20px;
+}
+
+.tarjeta {
+    background-color: #d9bda5; /* Color café claro */
+    border-radius: 8px;
+    padding: 40px; /* Espacio interno del contenedor */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
+  }
+
+.tarjeta:hover {
+    background-color: #dcc9bc;
+    transform: scale(1.02);
+  }
+
+
+.boton-agendar,
+.boton-historial {
+  background-color: #8d6e63; /* Color café medio */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.boton-agendar:hover,
+.boton-historial:hover {
+  background-color: #6f4c3e; /* Color café oscuro */
+}
+.vista-perfil {
+  background-color: #d9bda5; /* Color café claro */
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 35%; /* Ajusta el ancho para ocupar menos espacio */
+  order: 2; /* Coloca el perfil a la derecha */
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.vista-perfil:hover {
+  background-color: #dcc9bc;
+  transform: scale(1.02);
+
+}
+.perfil-info {
+  text-align: left; /* Alinear el texto a la izquierda */
+}
+
+
+
 /* Estilos para el contenido principal */
 .main-content {
   margin-left: 220px;
@@ -560,9 +638,10 @@ body {
 .agendamiento-card {
   width: 48%;
   margin-bottom: 20px;
-  background-color: #e2c7ab;
+  background-color: #d9bda5;
   padding: 20px;
   border-radius: 5px;
+  
 }
 
 .agendamiento-card h2, .agendamiento-card h3 {
@@ -855,7 +934,10 @@ body {
   border-radius: 15px; /* Bordes redondeados */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para darle profundidad */
   transition: background-color 0.3s, transform 0.3s;
+  /* Animación */
+animation: fadeIn 0.5s ease-in-out; /* Cambia el tiempo y el tipo de animación según lo desees */
 }
+
 .profile-container:hover {
   background-color: #dcc9bc;
   transform: scale(1.02);
@@ -863,6 +945,19 @@ body {
 
 .profile-header {
   text-align: center; /* Centra el contenido del encabezado del perfil */
+/* Animación */
+animation: fadeIn 0.5s ease-in-out; /* Cambia el tiempo y el tipo de animación según lo desees */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Comienza completamente transparente */
+    transform: translateY(-10px); /* Desplazamiento hacia arriba */
+  }
+  to {
+    opacity: 1; /* Termina completamente visible */
+    transform: translateY(0); /* Regresa a su posición original */
+  }
 }
 
 .profile-photo img {
@@ -882,7 +977,7 @@ body {
 .profile-details {
   margin-top: 50px; /* Espacio superior de los detalles */
   font-size: 14px; /* Tamaño del texto de los detalles */
-  color: #4a3b29; /* Color del texto de los detalles */
+  color: #82481f; /* Color del texto de los detalles */
 }
 
 .profile-details p {
@@ -893,6 +988,7 @@ body {
 .button-container {
   text-align: center; /* Centra el botón horizontalmente */
   margin-top: 20px; /* Espacio superior del botón */
+
 }
 
 .perfil-button {
@@ -1210,6 +1306,8 @@ footer {
   max-width: 100%;
   height: auto;
   margin-bottom: 0.1px; /* Ajusta el valor según lo que necesites */
+  border-radius: 8px; /* Bordes redondeados */
+
 }
 
 
@@ -1344,3 +1442,88 @@ footer {
 canvas {
   max-width: 100%;
 }
+
+
+.form-container {
+  max-width: 600px; /* Ancho máximo del contenedor */
+  margin: 0 auto; /* Centrar el contenedor en la página */
+  padding: 20px; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde del contenedor */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra del contenedor */
+  background-color: #fff; /* Color de fondo */
+}
+
+.formulario-grid {
+  display: grid; /* Usar grid para manejar columnas */
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual tamaño */
+  gap: 15px; /* Espacio entre los campos */
+}
+.formulario-grid div {
+  width: 100%; /* Asegurar que los campos ocupen todo el ancho disponible */
+  box-sizing: border-box;
+}
+
+input, select {
+  width: 100%; /* Asegurar que los campos ocupen todo el ancho disponible */
+  padding: 8px; /* Espaciado interno ajustado */
+  margin-top: 5px;
+  box-sizing: border-box;
+  min-height: 40px; /* Altura mínima ajustada */
+  border: 1px solid #ccc; /* Borde para que sea más visible */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+.center-buttons {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.outer-container {
+  padding: 20px; /* Espacio normal en todos los lados */
+  background-color: #efdbc793; /* Color de fondo para diferenciar */
+  margin: 0; /* Espacio alrededor del contenedor */
+  display: flex;
+  flex-direction: column; /* Alinear elementos en columna */
+  align-items: stretch; /* Asegurar que los elementos ocupen el ancho completo */
+  border-radius: 5px;
+  flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
+}
+
+.custom-scroll-arrows {
+  display: flex;
+  flex-direction: column;
+  position: fixed; /* Fijo en la pantalla */
+  right: 20px; /* Ajusta la posición horizontal */
+  top: 50%; /* Centrado verticalmente */
+  transform: translateY(-50%); /* Centra el contenedor */
+}
+
+.custom-scroll-button {
+  background-color: #6e3f1d; /* Color de fondo */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px; /* Espaciado interno */
+  margin: 5px 0; /* Espacio entre botones */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  transition: background-color 0.3s; /* Transición suave */
+}
+
+.custom-scroll-button:hover {
+  background-color: #be8042; /* Color al pasar el mouse */
+}
+
+
+.vehiculo-info {
+  display: grid; /* Usar grid para manejar columnas */
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual tamaño */
+  gap: 15px; /* Espacio entre los campos */
+}
+

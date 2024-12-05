@@ -5,6 +5,7 @@ import Login from '../Screen/Login';
 import Registro from '../Screen/Registro';
 import InicioVig from '../Screen/InicioVig';
 import InicioAdmin from '../Screen/InicioAdmin'; // Agregar importación
+import PaginaPrincipalResidente from '../Screen/PaginaPrincipalResidente';
 import InicioResi from '../Screen/InicioResi'; // Agregar importación
 import TorreAComponent from '../Screen/TorreA';
 import TorreBComponent from '../Screen/TorreB';
@@ -17,6 +18,8 @@ import SolicitudAgendamiento from '../Screen/SolicitudAgendamiento';
 import NuevoPerfil from '../Screen/NuevaCuenta';
 import Cuenta from '../Screen/Perfil';
 import Actualizar from '../Screen/ActualizarPerfil';
+import HistorialAgendamientos from '../Screen/HistorialAgendamientos';
+
 
 const App = () => {
   return (
@@ -28,6 +31,7 @@ const App = () => {
         <Route path="/InicioVig" element={<InicioVig />} />
         <Route path="/InicioAdmin" element={<InicioAdmin />} />
         <Route path="/InicioResi" element={<InicioResi />} />
+        <Route path="/PaginaPrincipalResidente" element={<PaginaPrincipalResidente />} />
         <Route path="/TorreA" element={<TorreAComponent />} />
         <Route path="/TorreB" element={<TorreBComponent />} />
         <Route path="/TorreC" element={<TorreCComponent />} />
@@ -39,9 +43,10 @@ const App = () => {
         <Route path="/NuevaCuenta" element={<NuevoPerfil />} />
         <Route path="/Perfil" element={<Cuenta />} />
         <Route path="/ActualizarPerfil" element={<Actualizar />} />
+        <Route path="/HistorialAgendamientos" element={<HistorialAgendamientos />} />
       </Routes>
     </Router>
   );
 };
 
-export default App;
+export default App;

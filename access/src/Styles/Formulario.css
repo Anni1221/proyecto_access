@@ -4,6 +4,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
+
 /* Card Styles */
 .card {
   padding: 20px;
@@ -36,13 +37,16 @@ body {
 }
 
 .menu {
+  list-style-type: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px;
+  padding: 0px;
+  margin: 0; /* Eliminar el margen */
   background-color: #6e3f1d;
   border-bottom: 1px solid #ccc;
 }
+
 
 .App {
   font-family: Arial, sans-serif;

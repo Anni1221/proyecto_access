@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Asegúrate de importar useNavigate
+import { Link } from 'react-router-dom';
 import '../Styles/InicioVig.css';
 import HeaderInicioResi from '../Components/HeaderInicioResi';
 import Footer from '../Components/Footer';
-import Vigilante from '../Assets/Img/vigilante.png';
 import VisitantePerfil from '../Assets/Img/visitante.png';
 import TorreA from '../Assets/Img/torreA.png';
 import TorreB from '../Assets/Img/torreB.png';
 import TorreC from '../Assets/Img/torreC.png';
-import TorreD from '../Assets/Img/torreD.png';
+import Edificio from '../Assets/Img/edificio.png';
 import Agenda from '../Assets/Img/agenda.png';
 import Reporte from '../Assets/Img/reporte.png';
 
 function InicioVig() {
   const [showAlert, setShowAlert] = useState(false);
-  const navigate = useNavigate();
+  const [showScrollUpBtn, setShowScrollUpBtn] = useState(false);
+  const [showScrollDownBtn, setShowScrollDownBtn] = useState(false);
+  
 
   // Simular el inicio de sesión exitoso cuando se monta la página
   useEffect(() => {
@@ -23,13 +24,36 @@ function InicioVig() {
       setShowAlert(false); // La alerta desaparece automáticamente después de 3 segundos
     }, 3000);
 
-    return () => clearTimeout(timer);
+    // Manejo de desplazamiento
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // Mostrar botón de desplazamiento hacia arriba
+      setShowScrollUpBtn(scrollY > 100);
+
+      // Mostrar botón de desplazamiento hacia abajo
+      setShowScrollDownBtn(scrollY < documentHeight - windowHeight - 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
-  // Función para cerrar sesión
-  const handleLogout = () => {
-    // Aquí puedes limpiar el token o la información de sesión almacenada
-    navigate('/Login'); // Redirigir a la página de inicio de sesión después de cerrar sesión
+
+
+  // Funciones para desplazamiento
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const scrollToBottom = () => {
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
   };
 
   return (
@@ -40,22 +64,19 @@ function InicioVig() {
           Inicio de sesión exitoso
         </div>
       )}
-      <h1 className="vigilante-title">Bienvenido a Access Check</h1>
+      <h1 className="apartment-list-title typing-text">Bienvenido a Access Check</h1>
       <div className="options-container">
-        <div className="profile-container">
-          <div className="profile-header">
-            <div className="profile-photo">
-              <img src={Vigilante} alt="Foto de Perfil" />
-            </div>
-            <h2 className="profile-name">José Alberto Linares Castellanos</h2>
-          </div>
-          <div className="profile-details">
-            <p><i className="fas fa-clock"></i> <strong>Jornada:</strong> Diurna</p>
-            <p><i className="far fa-id-card"></i> <strong>Tipo de Documento:</strong> C.C</p>
-            <p><i className="fas fa-id-badge"></i> <strong>Número de Identificación:</strong> 1023456756</p>
-            <p><i className="fas fa-mobile-alt"></i> <strong>Celular:</strong> 300-354-4579</p>
-            <p><i className="fas fa-envelope"></i> <strong>Correo Electrónico:</strong> josealberto@correo.com</p>
-          </div>
+      <div className="profile-container">
+        <div className="profile-header">
+        <h2 className="profile-name">José Alberto Linares Castellanos</h2>
+      </div>
+      <div className="profile-details">
+       <p><i className="far fa-id-card text-cafe"></i> <strong className="text-cafe">Tipo de Documento:</strong> <span>C.C</span></p>
+      <p><i className="fas fa-id-badge text-cafe"></i> <strong className="text-cafe">Número de Identificación:</strong> <span>1023456756</span></p>
+      <p><i className="fas fa-mobile-alt text-cafe"></i> <strong className="text-cafe">Celular:</strong> <span>300-354-4579</span></p>
+      <p><i className="fas fa-envelope text-cafe"></i> <strong className="text-cafe">Correo Electrónico:</strong> <span>josealberto@correo.com</span></p>
+  </div>
+
           <div className="button-container">
             <Link to="/perfil" className="perfil-button">Ver más</Link>
           </div>
@@ -66,7 +87,7 @@ function InicioVig() {
               <img src={TorreA} alt="Torre A" />
             </div>
             <div className="option-text">
-              <h2>Torre A</h2>
+            <h2 className="cafe">Torre A</h2>
             </div>
           </Link>
         </div>
@@ -76,7 +97,7 @@ function InicioVig() {
               <img src={TorreB} alt="Torre B" />
             </div>
             <div className="option-text">
-              <h2>Torre B</h2>
+            <h2 className="cafe">Torre B</h2>
             </div>
           </Link>
         </div>
@@ -86,17 +107,17 @@ function InicioVig() {
               <img src={TorreC} alt="Torre C" />
             </div>
             <div className="option-text">
-              <h2>Torre C</h2>
+            <h2 className="cafe">Torre C</h2>
             </div>
           </Link>
         </div>
         <div className="option">
-          <Link to="/TorreD">
+          <Link to="/Edificio">
             <div className="option-icon">
-              <img src={TorreD} alt="Torre D" />
+              <img src={Edificio} alt="Edificio" />
             </div>
             <div className="option-text">
-              <h2>Torre D</h2>
+            <h2 className="cafe">Torre D</h2>
             </div>
           </Link>
         </div>
@@ -106,7 +127,7 @@ function InicioVig() {
               <img src={Agenda} alt="Ver Agendamiento" />
             </div>
             <div className="option-text">
-              <h2>Ver Agendamiento</h2>
+            <h2 className="cafe">Ver Agendamiento</h2>
             </div>
           </Link>
         </div>
@@ -116,7 +137,7 @@ function InicioVig() {
               <img src={Reporte} alt="Ver Reportes" />
             </div>
             <div className="option-text">
-              <h2>Ver Reportes</h2>
+            <h2 className="cafe">Ver Reportes</h2>
             </div>
           </Link>
         </div>
@@ -126,19 +147,23 @@ function InicioVig() {
               <img src={VisitantePerfil} alt="Agendar Visita Sorpresa" />
             </div>
             <div className="option-text">
-              <h2>Agendar Visita Sorpresa</h2>
+            <h2 className="cafe">Agendar Visitas Sorpresa</h2>
             </div>
           </Link>
         </div>
-      </div>    
-      <Footer/>
-      <button id="scrollDownBtn" className="scroll-btn">
-      </button>
-      <button id="scrollUpBtn" className="scroll-btn" style={{ display: 'none' }}>
-      </button>
-      <button id="logoutBtn" className="logout-btn" onClick={handleLogout}>
-        Cerrar Sesión
-      </button>
+      </div>
+      <Footer />
+      {showScrollDownBtn && (
+        <button id="scrollDownBtn" className="scroll-btn" onClick={scrollToBottom}>
+          ↓
+        </button>
+      )}
+      {showScrollUpBtn && (
+        <button id="scrollUpBtn" className="scroll-btn" onClick={scrollToTop}>
+          ↑
+        </button>
+      )}
+
     </div>
   );
 }

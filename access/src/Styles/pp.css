@@ -12,6 +12,10 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   margin-top: 20px;
 }
+.cafe {
+  color: #804000; /* Un tono de café */
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -694,6 +698,9 @@ body {
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out; /* Cambia el tiempo y el tipo de animación según lo desees */
+
+
 }
 
 /*Agendar visita*/
@@ -905,10 +912,15 @@ body {
   text-align: center; /* Centra el texto dentro del botón */
   font-size: 16px; /* Tamaño del texto del botón */
   color: #fff; /* Color del texto del botón */
-  background-color: #be8042; /* Color de fondo del botón en la gama de cafés */
+  background-color: #86582d; /* Color de fondo del botón en la gama de cafés */
   border-radius: 5px; /* Bordes redondeados del botón */
   text-decoration: none; /* Quita el subrayado del enlace */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+}
+
+.inicio-button:hover {
+  background-color: #dcc9bc;
+
 }
 
 .perfil-button {
